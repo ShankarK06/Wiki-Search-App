@@ -15,6 +15,7 @@ class SA_SearchViewController: UIViewController {
         
         didSet {
             self.searchlistTableView.reloadData()
+            self.searchlistTableView.isHidden = false
         }
     }
     var search = UISearchController(searchResultsController: nil)
@@ -29,8 +30,9 @@ class SA_SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.searchlistTableView.isHidden = true
         self.title = self.viewModel.title
-        self.searchlistTableView.estimatedRowHeight = 80
+        self.searchlistTableView.estimatedRowHeight = 90
         self.searchlistTableView.rowHeight = UITableView.automaticDimension
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -38,7 +40,6 @@ class SA_SearchViewController: UIViewController {
         search.searchResultsUpdater = self
         search.delegate = self
         search.dimsBackgroundDuringPresentation = false
-
         self.navigationItem.searchController = search
         self.navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -55,22 +56,18 @@ class SA_SearchViewController: UIViewController {
         let url = URL(string: "https://en.wikipedia.org//w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=100&pilimit=30&wbptterms=description&gpssearch="+"\(searchString)"+"&gpslimit=30")!
         
         Webservice().getArticles(url: url) { articles in
-            print(articles)
             
             let articles = articles.map { article in
                 return ArticleViewModel(article :article)
             }
             
             self.viewModel = ArticleListViewModel(articles :articles)
+            self.searchlistTableView.isHidden = false
             self.searchlistTableView.reloadData()
 
         }
     }
     
-    @IBAction func addArticleButtonTapped(_ sender: Any) {
-        
-    }
-
 }
 
 
