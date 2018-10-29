@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import Reachability
 
 struct Common {
     // MARK: - Storyboards
@@ -22,6 +24,27 @@ struct Common {
     // MARK: - Stored Data Key
     struct StoreData {
         static let Saved_Articles = "Articles"
+    }
+
+}
+
+extension UIViewController {
+    
+    func showAlert(with title: String, and message: String, withButtonTitle buttonTitle: String = "OK") {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    func checkForConnection() -> Bool
+    {
+        let reachability = Reachability()!
+        switch reachability.connection {
+        case .cellular,.wifi:
+            return true
+        case .none:
+            return false
+        }
     }
 
 

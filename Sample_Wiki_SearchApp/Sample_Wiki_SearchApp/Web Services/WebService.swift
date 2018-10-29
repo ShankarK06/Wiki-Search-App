@@ -23,11 +23,12 @@ class Webservice {
                 let json = try! JSONSerialization.jsonObject(with: data, options: [])
                 
                 var dictionary = json as! JSONDictionary
-                dictionary = dictionary["query"] as! JSONDictionary
-                print(dictionary)
-                let articleDictionaries = dictionary["pages"] as! [JSONDictionary]
+                guard let dict = dictionary["query"] as? JSONDictionary else{
+                    return
+                }
+                let articleDictionaries = dict["pages"] as! [JSONDictionary]
 
-                articles = articleDictionaries.flatMap { dictionary in
+                articles = articleDictionaries.compactMap { dictionary in
                     return Article(dictionary :dictionary)
                 }
                 DispatchQueue.main.async {

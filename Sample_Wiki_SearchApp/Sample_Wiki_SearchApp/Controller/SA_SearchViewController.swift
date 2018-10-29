@@ -11,6 +11,7 @@ import SDWebImage
 
 class SA_SearchViewController: UIViewController {
 
+    @IBOutlet weak var NoresultsLable: UILabel!
     private var viewModel :ArticleListViewModel = ArticleListViewModel()  {
         
         didSet {
@@ -29,7 +30,7 @@ class SA_SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.NoresultsLable.text = "Start Searching for Results"
         self.searchlistTableView.isHidden = true
         self.title = self.viewModel.title
         self.searchlistTableView.estimatedRowHeight = 90
@@ -54,17 +55,27 @@ class SA_SearchViewController: UIViewController {
         let searchString: String = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         
         let url = URL(string: "https://en.wikipedia.org//w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=100&pilimit=30&wbptterms=description&gpssearch="+"\(searchString)"+"&gpslimit=30")!
-        
-        Webservice().getArticles(url: url) { articles in
+        if self.checkForConnection(){
             
-            let articles = articles.map { article in
-                return ArticleViewModel(article :article)
-            }
-            
-            self.viewModel = ArticleListViewModel(articles :articles)
-            self.searchlistTableView.isHidden = false
-            self.searchlistTableView.reloadData()
+            Webservice().getArticles(url: url) { articles in
+                
+                let articles = articles.map { article in
+                    return ArticleViewModel(article :article)
+                }
+                
+                self.viewModel = ArticleListViewModel(articles :articles)
+                self.searchlistTableView.isHidden = false
+                self.searchlistTableView.reloadData()
+                if self.viewModel.articles.count != 0 {
+                    self.NoresultsLable.text = ""
+                }else{
+                    self.NoresultsLable.text = "No result Found"
+                }
 
+            }
+        }else{
+            search.isActive = false
+            self.view.makeToast("No Internet,please check your network or WiFi connection", duration: 3.0, position: .center)
         }
     }
     
