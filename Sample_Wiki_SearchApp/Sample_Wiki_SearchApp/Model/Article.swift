@@ -12,7 +12,7 @@ class Article {
     
     var title :String
     var description :String
-    var avatarURL :String
+    var avatarURL :String? = ""
     
     init(title :String, description :String, avatarUrl :String) {
         self.title = title
@@ -23,22 +23,18 @@ class Article {
     
     init?(dictionary :JSONDictionary) {
         
-        guard let title = dictionary["title"] as? String else {
-                return nil
+        guard let title = dictionary["title"] as? String, let des = dictionary["terms"] as? JSONDictionary, let describ = des["description"] as? [String] else {
+            return nil
         }
         self.title = title
-        guard let des = dictionary["terms"] as? JSONDictionary, let describ = des["description"] as? [String] else{
-            self.description = ""
-            return nil
-        }
         self.description = describ.joined(separator: ",")
         
-        guard let thumbnail = dictionary["thumbnail"] as? JSONDictionary, let avatarURL = thumbnail["source"] as? String else{
-            self.avatarURL = ""
-            return nil
+        if let thumbnail = dictionary["thumbnail"] as? JSONDictionary{
+            guard let avatarURL = thumbnail["source"] as? String else {
+                return nil
+            }
+            self.avatarURL = avatarURL
         }
-        self.avatarURL = avatarURL
-
 
     }
     

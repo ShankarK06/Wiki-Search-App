@@ -10,12 +10,17 @@ import UIKit
 
 class SA_SearchTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var detailDescription: UILabel!
     @IBOutlet weak var title: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.containerView.layer.cornerRadius = 10.0
+        self.containerView.clipsToBounds = true
+        self.avatarImage.layer.cornerRadius = 6.0
+        self.avatarImage.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

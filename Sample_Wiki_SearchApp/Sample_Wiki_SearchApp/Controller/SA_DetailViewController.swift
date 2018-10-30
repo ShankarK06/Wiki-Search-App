@@ -17,6 +17,9 @@ class SA_DetailViewController: UIViewController,WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+
         activityIndicator.startAnimating()
         let url = URLRequest.init(url: URL.init(string: URL_String!)!)
         searchResultWebView.navigationDelegate = self

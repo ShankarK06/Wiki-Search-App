@@ -27,7 +27,7 @@ struct ArticleViewModel {
     
     var title :String
     var description :String
-    var avatarURL: String
+    var avatarURL: String? = ""
 }
 
 extension ArticleViewModel {
