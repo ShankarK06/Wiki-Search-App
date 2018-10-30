@@ -115,14 +115,16 @@ extension SA_SearchViewController: UITableViewDelegate, UITableViewDataSource{
         cell.detailDescription?.text = articleViewModel.description
         if articleViewModel.avatarURL != "" {
             let url = URL.init(string: articleViewModel.avatarURL!)
-            cell.avatarImage!.sd_setImage(with: url, completed: nil)
+            cell.avatarImage!.sd_setImage(with: url, placeholderImage: nil, options: .refreshCached) { (image, err, cacheType, url) in
+                cell.avatarImage.image = image
+            }
+//            (with: url, completed: nil)
         }
         cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         self.searchlistTableView.beginUpdates()
-
         if editingStyle == .delete {
             if isFromSavedValue {
                 var article: [String] = DataManager().getArticle
@@ -139,27 +141,9 @@ extension SA_SearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             self.viewModel.articles.remove(at: indexPath.row)
             self.searchlistTableView.deleteRows(at: [indexPath], with: .automatic)
-            DispatchQueue.main.async {
-                if self.viewModel.articles.count == 0 {
-                    self.isFromSavedValue = false
-                    self.searchlistTableView.isHidden = true
-                    self.NoresultsLable.isHidden = false
-                    self.viewModel = ArticleListViewModel()
-                }
-            }
             self.searchlistTableView.endUpdates()
-
         }
     }
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-//            // delete item at indexPath
-////            self.tableArray.remove(at: indexPath.row)
-////            tableView.deleteRows(at: [indexPath], with: .fade)
-////            print(self.tableArray)
-//        }
-//
-//    }
 }
 
 extension SA_SearchViewController: UISearchControllerDelegate, UISearchResultsUpdating,UISearchBarDelegate {
