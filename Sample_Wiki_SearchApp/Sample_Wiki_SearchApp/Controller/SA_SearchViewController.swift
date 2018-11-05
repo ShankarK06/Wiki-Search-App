@@ -115,9 +115,12 @@ extension SA_SearchViewController: UITableViewDelegate, UITableViewDataSource{
         cell.detailDescription?.text = articleViewModel.description
         if articleViewModel.avatarURL != "" {
             let url = URL.init(string: articleViewModel.avatarURL!)
+            cell.avatarImage.isHidden = false
             cell.avatarImage!.sd_setImage(with: url, placeholderImage: nil, options: .refreshCached) { (image, err, cacheType, url) in
                 cell.avatarImage.image = image
             }
+        }else{
+            cell.avatarImage.isHidden = true
         }
         cell.selectionStyle = .none
         return cell
