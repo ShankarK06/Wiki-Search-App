@@ -118,7 +118,6 @@ extension SA_SearchViewController: UITableViewDelegate, UITableViewDataSource{
             cell.avatarImage!.sd_setImage(with: url, placeholderImage: nil, options: .refreshCached) { (image, err, cacheType, url) in
                 cell.avatarImage.image = image
             }
-//            (with: url, completed: nil)
         }
         cell.selectionStyle = .none
         return cell

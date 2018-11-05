@@ -24,7 +24,6 @@ struct DataManager {
         let userDefaults = UserDefaults.standard
         if userDefaults.object(forKey: Common.StoreData.Saved_Articles) != nil {
           var art: [String] = userDefaults.object(forKey: Common.StoreData.Saved_Articles) as! [String]
-            
             for element in articles{
                 if !art.contains(element){
                     art.append(element)
