@@ -74,6 +74,7 @@
 		C027837C218625FD001DFA2C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		C027838021862AF3001DFA2C /* SA_SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SA_SearchTableViewCell.swift; sourceTree = "<group>"; };
 		C027838221862B50001DFA2C /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		C02878E121AFB31900C04BBA /* Sample_Wiki_SearchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sample_Wiki_SearchApp.entitlements; sourceTree = "<group>"; };
 		C034E62E2188D0FD009FDB4E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C034E6302188D25B009FDB4E /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
 		C034E6322188D35F009FDB4E /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 		C02783392186000B001DFA2C /* Sample_Wiki_SearchApp */ = {
 			isa = PBXGroup;
 			children = (
+				C02878E121AFB31900C04BBA /* Sample_Wiki_SearchApp.entitlements */,
 				C027833A2186000B001DFA2C /* AppDelegate.swift */,
 				C02783682186004D001DFA2C /* Web Services */,
 				C027836A2186004D001DFA2C /* Model */,
@@ -342,6 +344,14 @@
 				TargetAttributes = {
 					C02783362186000B001DFA2C = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+						};
 					};
 					C027834A21860010001DFA2C = {
 						CreatedOnToolsVersion = 10.0;
